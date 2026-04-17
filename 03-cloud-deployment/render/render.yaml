@@ -45,7 +45,9 @@ services:
   - type: redis
     name: agent-cache
     plan: free
-    maxmemoryPolicy: allkeys-lru
+    ipAllowList:
+      - source: 10.0.0.0/8
+        description: internal only
 
 # ============================================================
 # Cách deploy:
