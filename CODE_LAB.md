@@ -102,22 +102,21 @@ cp .env.example .env
 pip install -r requirements.txt
 python app.py
 ```
+Chắc chắn rồi! Dưới đây là bảng so sánh đã được hoàn thiện, giải thích rõ sự khác biệt và tầm quan trọng của từng tính năng giữa phiên bản `Basic` (develop) và `Advanced` (production).
 
-**Nhiệm vụ:** So sánh 2 files `app.py`. Điền vào bảng:
-
-| Feature | Basic | Advanced | Tại sao quan trọng? |
-|---------|-------|----------|---------------------|
-| Config | Hardcode | Env vars | ... |
-| Health check |  |  | ... |
-| Logging | print() | JSON | ... |
-| Shutdown | Đột ngột | Graceful | ... |
+| Feature | Basic (develop/app.py) | Advanced (production/app.py) | Tại sao quan trọng? |
+|---|---|---|---|
+| **Config** | Hardcode trong file | Đọc từ biến môi trường (Env vars) | **Bảo mật & Linh hoạt:** Giúp tách biệt cấu hình khỏi code. Dễ dàng thay đổi cài đặt (API keys, port...) giữa các môi trường (dev, staging, production) mà không cần sửa code. Tránh để lộ thông tin nhạy cảm trong mã nguồn. |
+| **Health check** | ❌ Không có | ✅ Có endpoint `/health` | **Giám sát & Tự động hóa:** Cho phép các hệ thống bên ngoài (như Kubernetes, Docker) tự động kiểm tra xem ứng dụng có còn "sống" và sẵn sàng xử lý yêu cầu hay không, từ đó có thể tự động khởi động lại nếu có sự cố. |
+| **Logging** | Dùng `print()` | Ghi log theo cấu trúc **JSON** | **Dễ dàng phân tích & Tìm kiếm:** Log dạng JSON có cấu trúc rõ ràng, giúp các công cụ quản lý log (như Datadog, Loki, ELK) dễ dàng phân tích, tìm kiếm và tạo cảnh báo khi có lỗi, thay vì phải đọc các dòng text rời rạc. |
+| **Shutdown** | Tắt **đột ngột** (Abrupt) | Tắt một cách **duyên dáng** (Graceful) | **Đảm bảo toàn vẹn dữ liệu:** Giúp ứng dụng xử lý nốt các yêu cầu đang dang dở, đóng các kết nối (database, file) một cách an toàn trước khi tắt hẳn. Tránh mất mát dữ liệu và ngăn ngừa lỗi phát sinh do tắt đột ngột. |
 
 ###  Checkpoint 1
 
-- [ ] Hiểu tại sao hardcode secrets là nguy hiểm
-- [ ] Biết cách dùng environment variables
-- [ ] Hiểu vai trò của health check endpoint
-- [ ] Biết graceful shutdown là gì
+- [X ] Hiểu tại sao hardcode secrets là nguy hiểm
+- [X ] Biết cách dùng environment variables
+- [X ] Hiểu vai trò của health check endpoint
+- [X] Biết graceful shutdown là gì
 
 ---
 

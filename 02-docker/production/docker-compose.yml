@@ -21,8 +21,8 @@ services:
   # ──────────────────────────────────────
   agent:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: 02-docker/production/Dockerfile
       target: runtime          # chỉ build stage "runtime", không build "builder"
     environment:
       - ENVIRONMENT=staging
@@ -77,7 +77,8 @@ services:
       test: ["CMD", "curl", "-f", "http://localhost:6333/health"]
       interval: 15s
       timeout: 5s
-      retries: 3
+      retries: 5
+      start_period: 30s
     networks:
       - internal
 

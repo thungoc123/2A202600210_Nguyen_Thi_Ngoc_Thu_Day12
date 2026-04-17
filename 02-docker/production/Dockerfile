@@ -43,13 +43,13 @@ WORKDIR /app
 
 # Copy installed packages từ builder
 COPY --from=builder /root/.local /home/appuser/.local
-
+COPY 02-docker/production/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 # Copy source code
 COPY 02-docker/production/main.py .
 
 # Copy utils from project root
 RUN mkdir -p /app/utils
-COPY utils/mock_llm.py /app/utils/mock_llm.py
 
 # Đặt ownership cho appuser
 RUN chown -R appuser:appuser /app
