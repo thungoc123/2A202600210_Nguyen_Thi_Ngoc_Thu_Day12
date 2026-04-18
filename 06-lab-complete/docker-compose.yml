@@ -6,6 +6,7 @@ services:
     ports:
       - "8000:8000"
     environment:
+      - PORT=8000
       - ENVIRONMENT=staging
       - APP_NAME=Production AI Agent
       - REDIS_URL=redis://redis:6379/0
